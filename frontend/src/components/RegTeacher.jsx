@@ -77,7 +77,7 @@ const RegTeacher=()=>{
         if (name.length>0 && age.length>0 && gender.length>0 && role.length>0 && qualification.length>0 && phone.length==10 && salary.length>0 && createpassword.length>0 && confirmpassword.match(createpassword)) {
             let payload={name,age,gender,role,qualification,phone,salary,password:confirmpassword}
             console.log(payload);
-            axios.post("http://localhost:9424/teacherregister",payload)
+            axios.post("https://schoolmanagement-api-39gd.onrender.com/teacherregister",payload)
             .then((x)=>{
                 console.log(x);
                 if (x.data=="alreadyateacher") {

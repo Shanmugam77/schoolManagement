@@ -12,7 +12,7 @@ const Studentprofile=()=>{
     let [details,setDetails]=useState("")
 
     useEffect(()=>{
-        axios.get(`http://localhost:9424/singlestudent/${userid.id}`)
+        axios.get(`https://schoolmanagement-api-39gd.onrender.com/singlestudent/${userid.id}`)
         .then((x)=>{
           setDetails(x.data)
         })
@@ -20,7 +20,7 @@ const Studentprofile=()=>{
     },[])
 
     let Delete=(id)=>{
-        axios.delete(`http://localhost:9424/deletestudent/${id}`)
+        axios.delete(`https://schoolmanagement-api-39gd.onrender.com/deletestudent/${id}`)
         .then((x)=>{
             if (x.data.acknowledged==true) {
                 navigate("/home")

@@ -68,7 +68,7 @@ const RegStudent=()=>{
         if (name.length>0 && age.length>0 && gender.length>0 && std.length>0 && phone.length==10 && createpassword.length>0 && confirmpassword.match(createpassword)) {
             let payload={studentid:name+phone,name,age,gender,std,phone,password:confirmpassword}
             console.log(payload);
-            axios.post("http://localhost:9424/studentregister",payload)
+            axios.post("https://schoolmanagement-api-39gd.onrender.com/studentregister",payload)
             .then((x)=>{
                 console.log(x);
                 if (x.data=="alreadyastudent") {

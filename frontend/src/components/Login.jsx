@@ -56,7 +56,7 @@ const Login=()=>{
     }
     let adminsubmit=()=>{
        let payload={phone,password}
-        axios.post("http://localhost:9424/loginadmin",payload)
+        axios.post("https://schoolmanagement-api-39gd.onrender.com/loginadmin",payload)
         .then((x)=>{
             // console.log(x);
             if (x.data=="usernotfound") {
@@ -76,7 +76,7 @@ const Login=()=>{
     }
     let teachersubmit=()=>{
         let payload={phone,password}
-        axios.post("http://localhost:9424/loginteacher",payload)
+        axios.post("https://schoolmanagement-api-39gd.onrender.com/loginteacher",payload)
         .then((x)=>{
             // console.log(x);
             if (x.data=="usernotfound") {
@@ -98,7 +98,7 @@ const Login=()=>{
     let studentsubmit=()=>{
         let spayload={studentid,password}
         console.log(spayload);
-        axios.post("http://localhost:9424/loginstudent",spayload)
+        axios.post("https://schoolmanagement-api-39gd.onrender.com/loginstudent",spayload)
         .then((x)=>{
             // console.log(x);
             if (x.data=="usernotfound") {

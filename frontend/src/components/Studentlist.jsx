@@ -12,7 +12,7 @@ const Studentlist=()=>{
 
 
     useEffect(()=>{
-        axios.get("http://localhost:9424/getstudentlist")
+        axios.get("https://schoolmanagement-api-39gd.onrender.com/getstudentlist")
         .then((x)=>{
             // console.log(x.data);
             setData(x.data)

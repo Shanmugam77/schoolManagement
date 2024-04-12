@@ -12,7 +12,7 @@ const Teacherlist=()=>{
 
 
     useEffect(()=>{
-        axios.get("http://localhost:9424/getteacherlist")
+        axios.get("https://schoolmanagement-api-39gd.onrender.com/getteacherlist")
         .then((x)=>{
             // console.log(x.data);
             setData(x.data)

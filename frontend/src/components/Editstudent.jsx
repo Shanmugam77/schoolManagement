@@ -68,7 +68,7 @@ const Editstudent=()=>{
     }
 
     useEffect(()=>{
-        axios.get(`http://localhost:9424/singlestudent/${userid.id}`)
+        axios.get(`https://schoolmanagement-api-39gd.onrender.com/singlestudent/${userid.id}`)
         .then((x)=>{
           setName(x.data.name)
           setAge(x.data.age)
@@ -84,7 +84,7 @@ const Editstudent=()=>{
     let update=()=>{
         let payload={studentid:name+phone,name,age,gender,std,phone,password:confirmpassword}
             console.log(payload);
-            axios.post(`http://localhost:9424/updatestudent/${userid.id}`,payload)
+            axios.post(`https://schoolmanagement-api-39gd.onrender.com/updatestudent/${userid.id}`,payload)
             .then((x)=>{
                 console.log(x);
                 if (x.data.acknowledged==true) {
