@@ -7,7 +7,7 @@ let teacherlist=require("./modules/teacherSchema")
 let admin=require("./modules/adminSchema")
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/SchoolManagement")
+mongoose.connect("mongodb+srv://shanmugam070702:atlas1234@@shanmugam.mo4ojoq.mongodb.net/SchoolManagement?retryWrites=true&w=majority&appName=shanmugam")
 mongoose.connection
 .once("open",()=>{console.log("db connected");})
 .on("error",()=>{console.log("error in db connection");})
