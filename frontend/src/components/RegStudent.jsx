@@ -27,6 +27,7 @@ const RegStudent=()=>{
     let [createpassword,setCreatepassword]=useState("")
     let [confirmpassword,setConfirmpassword]=useState("")
     let [passcheck,setPasscheck]=useState(false)
+    let phoneregex=/[0-9]{10}$/
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -65,7 +66,7 @@ const RegStudent=()=>{
     }
 
     let submit=()=>{
-        if (name.length>0 && age.length>0 && gender.length>0 && std.length>0 && phone.length==10 && createpassword.length>0 && confirmpassword.match(createpassword)) {
+        if (name.length>0 && age.length>0 && gender.length>0 && std.length>0 && phone.length==10 && phone.match(phoneregex) && createpassword.length>0 && confirmpassword.match(createpassword)) {
             let payload={studentid:name+phone,name,age,gender,std,phone,password:confirmpassword}
             console.log(payload);
             axios.post("https://schoolmanagement-api-39gd.onrender.com/studentregister",payload)

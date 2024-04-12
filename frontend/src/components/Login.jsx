@@ -19,6 +19,7 @@ const Login=()=>{
     let [phone,setPhone]=useState("")
     let [password,setPassword]=useState("")
     let [studentid,setStudentid]=useState("")
+    let phoneregex=/[0-9]{10}$/
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,16 +28,22 @@ const Login=()=>{
     };
 
     let adminswitch=()=>{
+        setPhone("")
+        setPassword("")
         setAdmin(true)
         setTeacher(false)
         setStudent(false)
     }
     let teacherswitch=()=>{
+        setPhone("")
+        setPassword("")
         setAdmin(false)
         setTeacher(true)
         setStudent(false)
     }
     let studentswitch=()=>{
+        setStudentid("")
+        setPassword("")
         setAdmin(false)
         setTeacher(false)
         setStudent(true)
@@ -55,44 +62,55 @@ const Login=()=>{
         setPassword(e.target.value)
     }
     let adminsubmit=()=>{
-       let payload={phone,password}
-        axios.post("https://schoolmanagement-api-39gd.onrender.com/loginadmin",payload)
-        .then((x)=>{
-            // console.log(x);
-            if (x.data=="usernotfound") {
-                alert("Invalid user number")
-            }
-            else{
-                if (x.data.password!=password){
-                    alert("wrong password")
+        if (phone.length==10 && phone.match(phoneregex)) {
+            let payload={phone,password}
+            axios.post("https://schoolmanagement-api-39gd.onrender.com/loginadmin",payload)
+            .then((x)=>{
+                // console.log(x);
+                if (x.data=="usernotfound") {
+                    alert("Invalid user number")
                 }
-            }
-            if (x.data.password==password) {
-                navigate("/home")
-            }
-           
-        })
-        .catch((err)=>{console.log(err);})
+                else{
+                    if (x.data.password!=password){
+                        alert("wrong password")
+                    }
+                }
+                if (x.data.password==password) {
+                    navigate("/home")
+                }
+               
+            })
+            .catch((err)=>{console.log(err);})  
+        }
+        else{
+            alert("invalid user number")
+        }
+       
     }
     let teachersubmit=()=>{
-        let payload={phone,password}
-        axios.post("https://schoolmanagement-api-39gd.onrender.com/loginteacher",payload)
-        .then((x)=>{
-            // console.log(x);
-            if (x.data=="usernotfound") {
-                alert("Invalid user number")
-            }
-            else{
-                if (x.data.password!=password){
-                    alert("wrong password")
+        if (phone.length==10 && phone.match(phoneregex)) {
+            let payload={phone,password}
+            axios.post("https://schoolmanagement-api-39gd.onrender.com/loginteacher",payload)
+            .then((x)=>{
+                // console.log(x);
+                if (x.data=="usernotfound") {
+                    alert("Invalid user number")
                 }
-            }
-            if (x.data.password==password) {
-                navigate(`/teacherprofile/${x.data._id}`)
-            }
-           
-        })
-        .catch((err)=>{console.log(err);})
+                else{
+                    if (x.data.password!=password){
+                        alert("wrong password")
+                    }
+                }
+                if (x.data.password==password) {
+                    navigate(`/teacherprofile/${x.data._id}`)
+                }
+               
+            })
+            .catch((err)=>{console.log(err);})
+        }
+        else{
+            alert("invalid user number")
+        }  
 
     }
     let studentsubmit=()=>{
@@ -102,7 +120,7 @@ const Login=()=>{
         .then((x)=>{
             // console.log(x);
             if (x.data=="usernotfound") {
-                alert("Invalid user studentid")
+                alert("Invalid studentid")
             }
             else{
                 if (x.data.password!=password) {

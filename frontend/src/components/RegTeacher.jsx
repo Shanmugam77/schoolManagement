@@ -29,6 +29,7 @@ const RegTeacher=()=>{
     let [createpassword,setCreatepassword]=useState("")
     let [confirmpassword,setConfirmpassword]=useState("")
     let [passcheck,setPasscheck]=useState(false)
+    let phoneregex=/[0-9]{10}$/
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -74,7 +75,7 @@ const RegTeacher=()=>{
     }
 
     let submit=()=>{
-        if (name.length>0 && age.length>0 && gender.length>0 && role.length>0 && qualification.length>0 && phone.length==10 && salary.length>0 && createpassword.length>0 && confirmpassword.match(createpassword)) {
+        if (name.length>0 && age.length>0 && gender.length>0 && role.length>0 && qualification.length>0 && phone.length==10 && phone.match(phoneregex) && salary.length>0 && createpassword.length>0 && confirmpassword.match(createpassword)) {
             let payload={name,age,gender,role,qualification,phone,salary,password:confirmpassword}
             console.log(payload);
             axios.post("https://schoolmanagement-api-39gd.onrender.com/teacherregister",payload)
