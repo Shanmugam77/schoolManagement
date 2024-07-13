@@ -16,11 +16,11 @@ class AdminController{
             }
 
             const hashPass = await hashPassword(10,password);
-            // const {userId} = req.user;
+            const {userId} = req.user;
 
             let data = req.body;
             data.password = hashPass;
-            // data.createdBy = userId || "";
+            data.createdBy = userId || "";
 
             const newData = await AdminService.createAdmin(data);
             return res.status(201).json({user:newData,message:"Admin created successfully"});
@@ -43,7 +43,7 @@ class AdminController{
 
     async getAdminById(req,res){
         try {
-            const Id = req.params.Id;
+            const Id = req.params.id;
             const admin = await AdminService.getAdminById(Id);
             return res.status(200).json({admin});
         } catch (error) {
@@ -54,19 +54,19 @@ class AdminController{
 
     async editAdmin(req,res){
         try {
-            const Id = req.params.Id;
+            const Id = req.params.id;
             const {firstName, lastName, email, password} = req.body;
             if(!firstName) return res.status(400).json({message:"FirstName required"});
             if(!lastName) return res.status(400).json({message:"LastName required"});
             if(!email) return res.status(400).json({message:"Email required"});
             if(!password) return res.status(400).json({message:"Password required"});
 
-            // const {userId} = req.user;
+            const {userId} = req.user;
             const data = req.body;
-            // data.updatedBy = userId;
+            data.updatedBy = userId;
             const updatedData = await AdminService.updateAdmin(Id,data);
             if (!updatedData) return res.status(400).json({message:"Failed to update Admin"});
-            return res.status(200).json({message:"Admin updated successfully"});
+            return res.status(200).json({data:updatedData,message:"Admin updated successfully"});
         } catch (error) {
             console.log(error);
             return res.status(500).json({error:error.message});
@@ -75,7 +75,7 @@ class AdminController{
 
     async deleteAdmin(req,res){
         try {
-            const Id = req.params.Id;
+            const Id = req.params.id;
             await AdminService.deleteAdmin(Id);
             return res.status(200).json({message:"Admin deleted successfully"});
         } catch (error) {
