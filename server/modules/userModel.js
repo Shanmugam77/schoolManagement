@@ -1,6 +1,6 @@
 let mongoose=require("mongoose")
 
-let adminschema=new mongoose.Schema({
+let userschema=new mongoose.Schema({
     firstName:{
         type:String,
         required:true
@@ -18,6 +18,12 @@ let adminschema=new mongoose.Schema({
         type:String,
         required:true
     },
+    role:{
+        type:String,
+        enum:["ADMIN", "TEACHER", "STUDENT"],
+        default:"ADMIN",
+        required:true
+    },
     createdBy:{
         type:mongoose.Schema.Types.ObjectId,
     },
@@ -25,6 +31,6 @@ let adminschema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
     }
 },{timestamps:true})
-const Admin=mongoose.model("admin",adminschema)
+const User=mongoose.model("users",userschema)
 
-module.exports={Admin};
+module.exports={User};

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const {User} = require("../modules/userModel")
 
 const authMiddleware = async(req,res,next) =>{
      try {
@@ -8,11 +9,12 @@ const authMiddleware = async(req,res,next) =>{
         const [,token] = authorization.split(" ");
         if(!token) return res.status(400).json({message:"Please include token to request"});
         const tokenPayload = await jwt.verify(token,process.env.JWT_SECRET_KEY);
+        if(!await User.findById(tokenPayload?.userId)) return res.status(400).json({message:"Your not a valid user"})
         req.user = {
-            userId : tokenPayload?.adminId || tokenPayload?.teacherId || tokenPayload?.studentId,
+            userId : tokenPayload?.userId,
             userEmail : tokenPayload?.email,
-            userName : tokenPayload?.name || "",
-            userRole : tokenPayload?.role || ""
+            userName : tokenPayload?.name,
+            userRole : tokenPayload?.role
         }
 
         next();
