@@ -1,16 +1,12 @@
-
-import Editstudent from "./components/Editstudent"
-import Editteacher from "./components/Editteacher"
-import Home from "./components/Home"
 import Login from "./components/Login"
-import RegStudent from "./components/RegStudent"
-import RegTeacher from "./components/RegTeacher"
-import Studentlist from "./components/Studentlist"
-import Studentprofile from "./components/Studentprofile"
-import Teacherlist from "./components/Teacherlist"
-import Teacherprofile from "./components/Teacherprofile"
 import "./index.css"
 import {Route,BrowserRouter,Routes} from "react-router-dom"
+import DashboardPage from "./Page/Dashboard"
+import TeacherlistPage from "./Page/Teacherlist"
+import AdminListPage from "./Page/Adminlist"
+import StudentListPage from "./Page/Studentlist"
+import SettingPage from "./Page/Setting"
+import HelpSupportPage from "./Page/Help&Support"
 
 
 const App=()=>{
@@ -19,15 +15,12 @@ const App=()=>{
          <BrowserRouter>
          <Routes>
             <Route element={<Login/>} path="/"/>
-            <Route element={<Home/>} path="/home"/>
-            <Route element={<Teacherlist/>} path="/teacher"/>
-            <Route element={<Studentlist/>} path="/student"/>
-            <Route element={<RegTeacher/>} path="/regteacher"/>
-            <Route element={<RegStudent/>} path="/regstudent"/>
-            <Route element={<Teacherprofile/>} path="/teacherprofile/:id"/>
-            <Route element={<Studentprofile/>} path="/studentprofile/:id"/>
-            <Route element={<Editteacher/>} path="/editteacher/:id"/>
-            <Route element={<Editstudent/>} path="/editstudent/:id"/>
+            <Route element={<DashboardPage/>} path="/dashboard"/>
+            <Route element={<AdminListPage/>} path="/adminlist"/>
+            <Route element={<TeacherlistPage/>} path="/teacherlist"/>
+            <Route element={<StudentListPage/>} path="/studentlist"/>
+            <Route element={<SettingPage/>} path="/setting"/>
+            <Route element={<HelpSupportPage/>} path="/help"/>
          </Routes>
          </BrowserRouter>
         </div>
