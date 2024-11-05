@@ -8,33 +8,10 @@ import Instance from "../Axiosconfig";
 
 const Login=()=>{
     let navigate=useNavigate()
-    let [admin,setAdmin]=useState(true)
-    let [teacher,setTeacher]=useState(false)
-    let [student,setStudent]=useState(false)
-    let [email,setEmail] = useState("");
-    let [password,setPassword] = useState("");
+    let [email,setEmail] = useState(localStorage.getItem("remEmail") ? localStorage.getItem("remEmail") : "");
+    let [password,setPassword] = useState(localStorage.getItem("remPassword") ? localStorage.getItem("remPassword") : "");
+    let [rememberPassword,setRememberPassword] = useState(localStorage.getItem("remFlag")?true:false);
 
-    let adminswitch=()=>{
-        setEmail("")
-        setPassword("")
-        setAdmin(true)
-        setTeacher(false)
-        setStudent(false)
-    }
-    let teacherswitch=()=>{
-        setEmail("")
-        setPassword("")
-        setAdmin(false)
-        setTeacher(true)
-        setStudent(false)
-    }
-    let studentswitch=()=>{
-        setEmail("")
-        setPassword("")
-        setAdmin(false)
-        setTeacher(false)
-        setStudent(true)
-    }
 
     let handleSubmit = async()=>{
         try {
@@ -49,12 +26,20 @@ const Login=()=>{
             let payload = {email,password};
             const response = await Instance.post("/auth/login",payload);
             if (response.status === 200) {
-                console.log(response?.data);
+                if (rememberPassword) {
+                    localStorage.setItem("remFlag",true)
+                    localStorage.setItem("remEmail",email);
+                    localStorage.setItem("remPassword",password);
+                }else{
+                    localStorage.removeItem("remFlag")
+                    localStorage.removeItem("remEmail")
+                    localStorage.removeItem("remPassword")  
+                }
                 const {responseData} = response?.data;
                 if(responseData){
                     localStorage.setItem("loginUserData",JSON.stringify(responseData));
                     localStorage.setItem("token",responseData?.token);
-                    localStorage.setItem("homeDashboard",true);
+                    localStorage.setItem("dashboard",true);
                     if (responseData?.userRole === 'STUDENT') {
                         navigate(`/studentprofile/${responseData?.userId}`)
                     }else{
@@ -70,13 +55,8 @@ const Login=()=>{
 
     return(
         <section className="h-[100vh] w-[100%] flex flex-col justify-center items-center">
-            <div className="h-[40px] w-[300px] rounded-[20px] overflow-hidden mb-[10px] shadow-sm shadow-slate-800">
-                <button onClick={adminswitch} className="h-[40px] w-[100px]" style={{backgroundColor:admin?"rgb(25,118,210)":""}}>Admin</button>
-                <button onClick={teacherswitch} className="h-[40px] w-[100px]" style={{backgroundColor:teacher?"rgb(25,118,210)":""}}>Teacher</button>
-                <button onClick={studentswitch} className="h-[40px] w-[100px]" style={{backgroundColor:student?"rgb(25,118,210)":""}}>Student</button>
-            </div>
             <FormControl className="h-[50vh] w-[40vh] rounded-[10px] p-3 shadow-sm shadow-black flex flex-col justify-evenly items-center">
-                <h1>{admin?"Admin":teacher?"Teacher":"Student"} Login</h1>
+                <h1>Login Page</h1>
                 <Input 
                   placeholder="Enter Email"  
                   size="large" 
@@ -95,8 +75,12 @@ const Login=()=>{
                   }}
                   value={password}
                 />
+                <div className="w-[90%] h-auto flex justify-center items-center gap-3">
+                    <input className="mt-1" type="checkbox" checked={rememberPassword} onChange={(e)=>{setRememberPassword(e?.target?.checked)}} />
+                    <h2>Remember Password</h2>
+                </div>
 
-                <Button onClick={handleSubmit} variant="contained">submit</Button>
+                <Button onClick={handleSubmit} variant="contained">Sign In</Button>
             </FormControl>
 
         </section>

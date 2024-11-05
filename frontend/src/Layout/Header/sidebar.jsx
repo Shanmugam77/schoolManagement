@@ -25,6 +25,7 @@ function Sidebar() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
+        localStorage.removeItem("dashboard")
         navigate("/");
       }
     });
