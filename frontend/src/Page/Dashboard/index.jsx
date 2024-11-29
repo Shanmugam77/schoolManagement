@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '../../Layout/Header/sidebar'
 import Header from '../../Layout/Header/Header'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const DashboardPage = () => {
   return (
@@ -8,10 +9,7 @@ const DashboardPage = () => {
       <Sidebar/>
       <Header/>
       <div className="main-wrapper">
-        <h1>hi</h1>
-        <div className='h-[100vh] bg-amber-300'>
-
-        </div>
+        <Dashboard/>
       </div>
     </div>
   )
